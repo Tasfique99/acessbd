@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ACCESSBD · See it. Understand it. Hear it.</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-header">
+  <div class="container nav-container">
+    <a href="#" class="logo" data-nav="home">ACCESS<span class="logo-accent">BD</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <nav class="main-nav" id="mainNav">
+      <ul class="nav-list">
+        <li><a href="#" class="nav-link active" data-nav="home">Home</a></li>
+        <li><a href="#" class="nav-link" data-nav="scan">Scan</a></li>
+        <li><a href="#" class="nav-link" data-nav="history">History</a></li>
+        <li><a href="#" class="nav-link" data-nav="accessibility">Accessibility</a></li>
+        <li><a href="#" class="nav-link" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" class="container main-content" tabindex="-1">
+
+<!-- HOME -->
+<section id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">ACCESS<span class="accent">BD</span></h1>
+      <p class="hero-tagline">See it.<br>Understand it.<br>Hear it.</p>
+      <p class="hero-desc">Turn difficult written information into something you can understand, translate and hear.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-nav="scan">📷 Scan Document</button>
+        <button class="btn btn-secondary" id="heroDemoBtn">📄 Try Demo</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card"><div class="hero-card-icon">🔊</div><p class="hero-card-text">Reading aloud…</p></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2 class="section-title">What can AccessBD do?</h2>
+    <div class="features-grid">
+      <article class="feature-card" tabindex="0"><div class="feature-icon">📖</div><h3>READ</h3><p>Extract text from documents.</p></article>
+      <article class="feature-card" tabindex="0"><div class="feature-icon">🌐</div><h3>TRANSLATE</h3><p>English ↔ বাংলা</p></article>
+      <article class="feature-card" tabindex="0"><div class="feature-icon">🧠</div><h3>SIMPLIFY</h3><p>Turn complicated language into simple language.</p></article>
+      <article class="feature-card" tabindex="0"><div class="feature-icon">💬</div><h3>ASK</h3><p>Ask questions about the document.</p></article>
+      <article class="feature-card" tabindex="0"><div class="feature-icon">🔊</div><h3>LISTEN</h3><p>Hear information aloud.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">How it works</h2>
+    <div class="workflow">
+      <div class="workflow-step"><span class="workflow-icon">📷</span><span>Scan</span></div>
+      <span class="workflow-arrow">→</span>
+      <div class="workflow-step"><span class="workflow-icon">🔤</span><span>OCR</span></div>
+      <span class="workflow-arrow">→</span>
+      <div class="workflow-step"><span class="workflow-icon">🧠</span><span>AI</span></div>
+      <span class="workflow-arrow">→</span>
+      <div class="workflow-step"><span class="workflow-icon">🌐</span><span>Translate</span></div>
+      <span class="workflow-arrow">→</span>
+      <div class="workflow-step"><span class="workflow-icon">💬</span><span>Ask</span></div>
+      <span class="workflow-arrow">→</span>
+      <div class="workflow-step"><span class="workflow-icon">🔊</span><span>Listen</span></div>
+    </div>
+  </section>
+</section>
+
+<!-- SCAN -->
+<section id="page-scan" class="page">
+  <h2 class="page-title">Scan a Document</h2>
+  <p class="page-subtitle">Take a photo or upload an image of written information.</p>
+
+  <div id="uploadArea" class="upload-area">
+    <div id="uploadPlaceholder" class="upload-placeholder">
+      <div class="upload-icon">📄</div>
+      <p>Drag & drop an image, or use a button below</p>
+      <div class="upload-actions">
+        <button class="btn btn-primary" id="takePhotoBtn">📷 Take Photo</button>
+        <button class="btn btn-secondary" id="uploadImageBtn">📁 Upload Image</button>
+      </div>
+      <p class="upload-hint">Supports JPG, JPEG, PNG, WEBP</p>
+      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden />
+      <div id="cameraBox" class="camera-box" hidden>
+        <video id="cameraPreview" class="camera-preview" autoplay playsinline></video>
+        <div class="camera-actions">
+          <button class="btn btn-primary" id="captureBtn">📸 Capture</button>
+          <button class="btn btn-secondary" id="closeCameraBtn">Cancel</button>
+        </div>
+      </div>
+      <canvas id="cameraCanvas" hidden></canvas>
+    </div>
+    <div id="imagePreviewContainer" class="image-preview-container" hidden>
+      <img id="imagePreview" class="image-preview" alt="Preview of the selected document" />
+      <div class="preview-actions">
+        <button class="btn btn-primary" id="scanDocumentBtn">🔍 Scan Document</button>
+        <button class="btn btn-secondary" id="changeImageBtn">Change Image</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-actions">
+    <button class="btn btn-outline" id="trySampleBtn">📄 Try Sample Document</button>
+  </div>
+
+  <div id="resultArea" class="result-area" hidden>
+    <div class="detected-badge">
+      <span class="badge badge-success" id="detectedBadge">DOCUMENT DETECTED</span>
+      <span class="detected-meta" id="detectedLanguage">Language: English</span>
+      <span class="detected-meta" id="detectedConfidence">Confidence: 94%</span>
+    </div>
+
+    <div class="extracted-section">
+      <h3 class="section-title-sm">EXTRACTED TEXT</h3>
+      <div id="extractedText" class="document-viewer" tabindex="0"></div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-icon" id="readAloudBtn">🔊 Read Aloud</button>
+      <button class="btn btn-icon" id="stopSpeakingBtn" hidden>⏹ Stop</button>
+      <button class="btn btn-icon" id="translateBtn">🌐 Translate</button>
+      <button class="btn btn-icon" id="simplifyBtn">🧠 Simplify</button>
+      <button class="btn btn-icon" id="askDocumentBtn">💬 Ask Document</button>
+    </div>
+
+    <div id="translatePanel" class="panel" hidden>
+      <h3 class="panel-title">Translate</h3>
+      <div class="lang-buttons">
+        <button class="btn btn-lang active" data-lang="en">🇬🇧 English</button>
+        <button class="btn btn-lang" data-lang="bn">🇧🇩 বাংলা</button>
+      </div>
+      <div id="translatedText" class="document-viewer translated-viewer" tabindex="0"></div>
+      <p class="demo-note">Demo translation — connect a real API later.</p>
+    </div>
+
+    <div id="simplifyPanel" class="panel" hidden>
+      <h3 class="panel-title">Simplify</h3>
+      <div class="simplify-toggle">
+        <button class="btn btn-lang active" data-simplify="en">SIMPLE ENGLISH</button>
+        <button class="btn btn-lang" data-simplify="bn">সহজ বাংলা</button>
+      </div>
+      <div id="simplifiedText" class="document-viewer simplified-viewer" tabindex="0"></div>
+      <p class="demo-note">Demo simplification — connect a real AI API later.</p>
+    </div>
+
+    <div id="askPanel" class="panel" hidden>
+      <h3 class="panel-title">Ask AccessBD</h3>
+      <p class="panel-subtitle">Ask anything about this document.</p>
+      <div class="suggested-questions">
+        <button class="chip" data-question="When is the deadline?">When is the deadline?</button>
+        <button class="chip" data-question="Who can participate?">Who can participate?</button>
+        <button class="chip" data-question="What do I need to submit?">What do I need to submit?</button>
+        <button class="chip" data-question="Explain this in Bangla.">Explain this in Bangla.</button>
+        <button class="chip" data-question="Summarise this notice.">Summarise this notice.</button>
+      </div>
+      <div class="ask-input-row">
+        <input type="text" id="askInput" class="ask-input" placeholder="What would you like to know?" />
+        <button class="btn btn-primary" id="askSubmitBtn">ASK</button>
+      </div>
+      <div id="askAnswer" class="ask-answer" aria-live="polite" tabindex="0"></div>
+      <p class="demo-note">Answers are demo-based on the sample document.</p>
+    </div>
+
+    <div id="formAssistant" class="panel form-assistant" hidden>
+      <h3 class="panel-title">FORM DETECTED</h3>
+      <p>Required information:</p>
+      <ul class="form-fields">
+        <li>✓ Full Name</li><li>✓ Date of Birth</li><li>✓ Address</li>
+        <li>✓ Phone Number</li><li>✓ Signature</li>
+      </ul>
+      <button class="btn btn-outline" id="explainFormBtn">HELP ME UNDERSTAND THIS FORM</button>
+      <div id="formExplanation" class="form-explanation" hidden></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="page-history" class="page">
+  <h2 class="page-title">History</h2>
+  <div id="historyList" class="history-list"></div>
+  <div id="historyEmpty" class="history-empty" hidden>
+    <p>No scanned documents yet.</p>
+    <button class="btn btn-primary" data-nav="scan">SCAN YOUR FIRST DOCUMENT</button>
+  </div>
+</section>
+
+<!-- ACCESSIBILITY -->
+<section id="page-accessibility" class="page">
+  <h2 class="page-title">Accessibility Settings</h2>
+  <div class="settings-grid">
+    <div class="setting-card">
+      <h3>TEXT SIZE</h3>
+      <div class="setting-options">
+        <button class="btn btn-setting" data-textsize="small">Small</button>
+        <button class="btn btn-setting active" data-textsize="medium">Medium</button>
+        <button class="btn btn-setting" data-textsize="large">Large</button>
+        <button class="btn btn-setting" data-textsize="xlarge">Extra Large</button>
+      </div>
+    </div>
+    <div class="setting-card">
+      <h3>HIGH CONTRAST</h3>
+      <div class="setting-options">
+        <button class="btn btn-setting" data-contrast="on">ON</button>
+        <button class="btn btn-setting active" data-contrast="off">OFF</button>
+      </div>
+    </div>
+    <div class="setting-card">
+      <h3>REDUCE MOTION</h3>
+      <div class="setting-options">
+        <button class="btn btn-setting" data-motion="on">ON</button>
+        <button class="btn btn-setting active" data-motion="off">OFF</button>
+      </div>
+    </div>
+    <div class="setting-card">
+      <h3>LANGUAGE</h3>
+      <div class="setting-options">
+        <button class="btn btn-setting active" data-uilang="en">English</button>
+        <button class="btn btn-setting" data-uilang="bn">বাংলা</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="page-about" class="page">
+  <h2 class="page-title">About AccessBD</h2>
+  <div class="about-content">
+    <p><strong>AccessBD</strong> is an AI-powered multilingual accessibility assistant designed to make written information easier to see, understand, translate and hear.</p>
+    <h3>The problem</h3>
+    <p>Many people in Bangladesh face barriers with complex written information — school notices, government forms, or healthcare leaflets.</p>
+    <h3>The solution</h3>
+    <p>AccessBD uses OCR to extract text from images, then offers translation (English ↔ বাংলা), simplification, document Q&A, and text-to-speech.</p>
+    <h3>The technology</h3>
+    <p>Built with HTML, CSS, and vanilla JavaScript using the browser's SpeechSynthesis API. Designed so real OCR, translation, and AI APIs can be connected later.</p>
+    <h3>Bangladesh focus</h3>
+    <p>Sample documents reflect real information environments in Bangladesh.</p>
+    <h3>Innovation statement</h3>
+    <p><em>"Our innovation lies in combining document understanding, multilingual translation, simplification, question answering and speech into an accessibility-first interface designed around the information environment of Bangladesh."</em></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>ACCESSBD · Making information accessible.</p>
+    <p class="footer-sub">RoboFest BuildAthon · Demo mode</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
